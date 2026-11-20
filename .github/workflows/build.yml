@@ -21,7 +21,7 @@ jobs:
           for z in asset-packs/*.zip; do unzip -o -q "$z" -d src/main/resources; done
       - name: Resolve GeckoLib and ModMenu versions
         run: |
-          get() { curl -sf -A "Fox-Animation-CI" -G "https://api.modrinth.com/v2/project/$1/version" --data-urlencode 'loaders=["fabric"]' "${@:2}" | jq -r '.[0].id // empty'; }
+          get() { curl -sf -A "Alive-CI" -G "https://api.modrinth.com/v2/project/$1/version" --data-urlencode 'loaders=["fabric"]' "${@:2}" | jq -r '.[0].id // empty'; }
           GL=$(get geckolib --data-urlencode 'game_versions=["26.3"]')
           MM=$(get modmenu --data-urlencode 'game_versions=["26.3"]')
           [ -n "$MM" ] || MM=$(get modmenu)
@@ -32,5 +32,5 @@ jobs:
       - run: gradle build --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: fox-animation
+          name: Alive
           path: build/libs/*.jar
